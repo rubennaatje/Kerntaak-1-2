@@ -37,7 +37,6 @@ app.use(session({
 }));
 
 app.use(require('./routes/index.js'));
-app.use(require('./routes/users.js'));
 app.use(require('./routes/backend.js'));
 
 app.listen(port, function () {

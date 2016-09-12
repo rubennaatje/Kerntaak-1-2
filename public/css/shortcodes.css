@@ -1,0 +1,351 @@
+/*
+Theme Name: #My Shortcodes
+Version: 0.1
+Author: Vopros08
+Author URI: http://mega.black/
+Description: 
+License: 
+*/
+
+/* Table of Contents
+==================================================
+	#Alerts
+	#Buttons
+	#Tabs
+	#Accordion
+	#Carousel
+*/
+
+
+
+/* @group Alerts */
+
+.alert-box {
+	margin: 10px 0;
+	text-align: center;
+	background-color: silver;
+	position: relative;
+	font-size: 20px;
+	font-family: GothamBk;
+	box-shadow: 0 1px 4px;
+}
+
+.alert-box>div {
+	padding: 20px 55px;
+}
+
+.alert-icon{
+	margin-right: 5px;
+	font-size: 18px;
+}
+
+.alert-close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+}
+
+.alert-danger{
+	background-color: #F2D0D0;
+	outline: 1px solid #D04D4D;
+	color: #D04D4D;
+}
+
+.alert-danger .alert-close{
+	background: #D04D4D;
+}
+
+.alert-danger .alert-close:hover{
+	background: #BE4747;
+}
+
+.alert-success {
+	background-color: #D8F0CE;
+	outline: 1px solid #87B672;
+	color: #87B672;
+}
+
+.alert-success .alert-close{
+	background: #87B672;
+}
+
+.alert-success .alert-close:hover{
+	background: #76A064;
+}
+
+.alert-notice {
+	background-color: #FCF8E3;
+	outline: 1px solid #CAA057;
+	color: #CAA057;
+}
+
+.alert-notice .alert-close{
+	background: #CAA057;
+}
+
+.alert-notice .alert-close:hover{
+	background: #B28D4D;
+}
+
+.alert-info {
+	background-color: #D3F1FF;
+	outline: 1px solid #3079C6;
+	color: #3079C6;
+}
+
+.alert-info .alert-close{
+	background: #3079C6;
+}
+
+.alert-info .alert-close:hover{
+	background: #2A69AD;
+}
+
+/* @end */
+
+/* @group Buttons */
+
+.button-box {
+	display: inline;
+}
+
+.button-box .button {
+	display: inline-block;
+	margin: 2px;
+	font-family: GothamBk;
+	background-color: #79CAF3;
+	color: white;
+	border-style: solid;
+	border-color: #3079C6;
+}
+
+.button-box .button:hover{
+	background-color: #559EDB;
+}
+
+.button.small{
+	padding: 2px 5px;
+	font-size: 12px;
+}
+
+.button.medium{
+	padding: 8px 13px;
+	font-size: 14px;
+}
+
+.button.large{
+	padding: 15px 25px;
+	font-size: 18px;
+}
+
+.button.xlarge{
+	padding: 20px 45px;
+	font-size: 22px;
+}
+
+.button.xxlarge{
+	padding: 30px 60px;
+	font-size: 26px;
+}
+
+.button.border-1{
+	border-width: 1px;
+}
+
+.button.border-2{
+	border-width: 2px;
+}
+
+.button.border-3{
+	border-width: 3px;
+}
+
+.button.border-4{
+	border-width: 4px;
+}
+
+.button.border-5{
+	border-width: 5px;
+}
+
+.button.border-6{
+	border-width: 6px;
+}
+
+.button.border-7{
+	border-width: 7px;
+}
+
+.button.border-8{
+	border-width: 8px;
+}
+
+.button.border-9{
+	border-width: 9px;
+}
+
+.button.border-10{
+	border-width: 10px;
+}
+
+.button.color-1{
+	background-color: #AB7EB7;
+	border-color: #6E4977;
+}
+
+.button.color-1:hover{
+	background-color: #9D74A8;
+}
+
+.button.color-2{
+	background-color: #74CABA;
+	border-color: #487D73;
+}
+
+.button.color-2:hover{
+	background-color: #6CBCAD;
+}
+
+.button.color-3{
+	background-color: #666262;
+	border-color: #353333;
+}
+
+.button.color-3:hover{
+	background-color: #585555;
+}
+
+.button.color-4{
+	background-color: #DACE94;
+	border-color: #A39A6F;
+}
+
+.button.color-4:hover{
+	background-color: #CABF89;
+}
+
+.button.color-5{
+	background-color: #CA6969;
+	border-color: #9A5050;
+}
+
+.button.color-5:hover{
+	background-color: #B55E5E;
+}
+
+.button.color-6{
+	background-color: #A6D56D;
+	border-color: #7FA353;
+}
+
+.button.color-6:hover{
+	background-color: #92BB5F;
+}
+
+.button.color-7{
+	background-color: #FFB062;
+	border-color: #C4884B;
+}
+
+.button.color-7:hover{
+	background-color: #E7A059;
+}
+
+.button.color-8{
+	background-color: #D5D5D5;
+	border-color: #A3A3A3;
+}
+
+.button.color-8:hover{
+	background-color: #BEBEBE;
+}
+
+/* @end */
+
+/* @group Tabs */
+
+#tabs{
+	margin: 20px 0;
+}
+
+#tabs .nav-tabs li{
+	display: inline;
+	margin: 0;
+	list-style-type: none;
+}
+
+#tabs .nav-tabs a{
+	display: inline-block;
+	float: left;
+	padding: 10px 15px;
+	font-size: 18px;	
+	background-color: rgba(98, 190, 235, 0.4);
+	color: white !important;
+	margin-right: 2px;
+}
+
+#tabs .ui-state-active a{
+	background-color: #62BEEB;
+	cursor: context-menu;
+}
+
+#tabs .tab-content{
+	clear: both;
+	border: 1px solid #94D5F5;
+	color: #2AA0DA;
+	background: #F0F8FF;
+}
+
+#tabs .tab-pane{
+	padding: 15px 25px;
+}
+
+
+/* @end */
+
+/* @group Accordion */
+
+#accordion{
+	margin: 20px 0;
+}
+
+#accordion h3{
+	margin: 0;
+	padding: 10px 15px;
+	color: white;
+	background: #C0E5F7;
+	font-family: GothamBk;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+#accordion .ui-accordion-header-active{
+	background: #62BEEB;
+	cursor: context-menu;
+}
+
+#accordion div{
+	padding: 10px 15px;
+	color: #2AA0DA;
+	background: #F0F8FF;
+}
+
+/* @end */
+
+/* @group Carousel */
+
+#flexcarousel{
+	border-bottom: 0;
+}
+
+#flexcarousel li{
+	margin: 0;
+}
+
+#flexcarousel img{
+	width: 100%;
+}
+
+
+/* @end */

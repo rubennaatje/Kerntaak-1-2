@@ -1,0 +1,336 @@
+
+
+/* #Media Queries
+================================================== */
+
+
+
+	/* iPad Portrait/Browser */
+	@media only screen and (min-width: 788px) and (max-width: 979px) {
+
+	#navigation ul {border-radius:0px;}
+	#navigation .menu-box ul li a {padding: 0 9px;font-size: 13px;}
+	#navigation .menu-header ul  .menu-item.menu-item-has-children a{padding: 0 14px 0 9px;}
+	#sidebar .widget-container {margin-left: 0px;}
+	#respond textarea {width:auto;}
+	#header .site-desc.text {font-size: 1.25em;}
+	#footer .follow-us a{margin-right: 0;}
+	#header .header-search {width: 30%;}
+	#header .header-search button {padding: 10px !important;width: 39%;}
+	}
+	
+	@media only screen and (max-width: 979px) {
+
+	.slider-box .slide-title{padding: 10px 20px;}
+	.slider-bottom-title span {padding: 15px !important;}
+	.isStuck .cfl-nav-logo {font-size: 30px;line-height: 40px;}
+	#navigation .menu-box ul a {line-height: 46px;}
+	#navigation .cfl-nav-logo {line-height: 44px;font-size: 22px;}
+	#navigation  div.menu-box{height: 46px;}
+	#comments #respond textarea {width: 300px;}
+	body h1{font-size: 1.5em;}
+	#navigation .menu-header ul .menu-item-has-children:after {right: 11px; font-size: 14px; top: 22%;}	
+	.slider-box .slide-title a {padding: 10px 20px;}
+	.slider-box .slide-description{display:none;}
+	
+	}
+
+
+	/* Mobile/Browser */
+	
+	
+	.mobile-button i{
+	color: #62beeb;
+	}
+	
+	@media only screen and (min-width: 788px){
+	.mobile-button{
+	display: none;
+	}	
+	}
+	
+	@media only screen and (max-width: 787px) {
+
+	#wrap {}
+	#header .site-desc.text {font-size: 1.25em;}
+
+	#navigation ul,
+	#navigation ul li,
+	#navigation ul li a {
+	float: none;
+	background: transparent;
+	border: none;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+	behavior:none;
+	}
+
+	#navigation ul li a,
+	#navigation ul li.active a,
+	#navigation ul li a:hover,
+	#navigation ul li:hover a {
+	border: none;
+	background: transparent;
+	background-image: none;
+	}
+
+	.mobile-button, #header .header-follow-us {
+	position: absolute;
+	right: 0;
+	bottom: 10px;
+	cursor: pointer;
+	font-size: 24px;
+	height: auto;
+	}
+	
+	#navigation{
+	display: none;
+	}
+	
+	#navigation  div.fix-menu, #navigation  div.menu-box {
+	position: relative !important;
+	}
+	
+	#navigation  .container {
+	width: 100% !important; text-align: center;
+	}
+	
+	#navigation div.menu-box{
+	height: auto;
+	}
+	
+	#navigation .menu-box li:hover{
+	background-color: #62beeb;
+	}
+	
+	#header .header-search {
+	position: absolute;
+	right: 0;
+	top: 15px;
+	width: 190px;	
+	}
+
+	#header .header-search, #header .header-follow-us {
+	padding: 0;	
+	}
+	
+	#header .header-follow-us {
+	right: 35px;
+	bottom: 8px;
+	}
+	
+	#header .header-follow-us .fa {
+	height: auto;
+	line-height: 1;
+	}
+	
+	#header .header-search input, #header .header-search button{
+	padding: 5px 10px !important;
+	height: 30px;
+	}
+	
+	#header .header-search input {
+	width: 80%;
+	}
+	
+	#header .header-search button {
+	padding: 8px !important;
+	}
+	
+	#header .header-follow-us a .fa {
+	width: 26px;font-size: 23px;margin:0;
+	}
+	
+	#header .header-search span, .slide-description{
+	display: none;	
+	}
+	
+	#header .header-search i{
+	margin-right: 0;
+	}
+	
+	#header #site-title a {
+	font-size: 16px !important;
+	}
+	
+	#header .site-desc {
+	font-size: 12px !important;
+	line-height: 1 !important;
+	}
+	#footer #footermenu li{
+	margin: 10px 0;
+	}
+	
+	#footer #footermenu li+li{
+	padding-left: 5px;
+	}
+	
+	#footer #footermenu li a{
+	margin: 0 5px;
+	}
+	
+	#footer #footermenu ul {
+	float: none;
+	}
+
+
+	/* Initial reset and hide sublevels in mobile view */
+
+	#navigation ul.sub-menu,#navigation ul.children,
+	#navigation ul.sub-menu li,#navigation ul.children li,
+	#navigation ul.sub-menu li:hover,#navigation ul.children li:hover,
+	#navigation ul.sub-menu li a,#navigation ul.children li a,
+	#navigation ul.sub-menu li a:hover,#navigation ul.children li a:hover
+	 {
+		display: none;
+		position: relative;
+		left: 0px;
+		background: none;
+		border: none;
+		border-style: none;
+		-webkit-box-shadow:none;
+		-moz-box-shadow:none;
+		box-shadow:none;
+		padding: 0;
+		margin: 0;
+		height: auto;
+		background-image: none;
+	}
+
+	/* Declare new padding for submenu items */
+
+	#navigation ul.sub-menu li a,#navigation ul.children li a,
+	#navigation ul.sub-menu li a:hover,#navigation ul.children li a:hover {
+
+	}
+
+	/* Show on hover */
+
+	#navigation li:hover ul.sub-menu,#navigation li:hover ul.children,
+	#navigation li:hover ul.sub-menu li,#navigation li:hover ul.children li,
+	#navigation li:hover ul.sub-menu li a,#navigation li:hover ul.children li a {
+		display: block;
+	}
+	
+	#navigation ul.sub-menu .menu-item a, #navigation ul.children .menu-item a{
+		height: auto;
+		line-height: inherit;
+		padding: 0;
+	}
+	
+	#navigation .menu-header ul .menu-item-has-children:after {
+		position: absolute;
+		top: 0;
+	}
+	
+	#navigation  .fix-menu.isStuck ul a{
+		line-height: inherit;
+	}
+	
+	.admin-bar #navigation .fix-menu.isStuck {
+		top: 0;
+	}
+	
+	#navigation ul.sub-menu{
+		width: 100% !important;
+	}
+	
+	#respond textarea {width:300px;}
+
+	#wrap .products li,.products li.first,.products li.last {
+ 	float: left;
+ 	clear: both;
+	margin: 20px 0px 20px 0px;
+	width: 100%;
+	}
+	#breadcrumb {display: none;}
+
+	#sidebar .widget-container {margin-left: 0px;}
+	
+	.slider-box .slide-container {
+	top: 17px !important;
+	bottom: auto !important;
+	}
+	
+	.slider-box .flexslider .slides img {
+	width: auto;
+	height: 200px;
+	}
+		
+	#comments #respond input[type=text]{
+	margin: 0;
+	}
+	.slider-bottom-title span {
+	padding: 7px !important;
+	}
+	
+	#navigation .menu-box ul {
+	float: none;
+	}
+	
+	#navigation .menu-box ul a {
+	line-height: 2;
+	width: 100%;
+	padding: 0 !important;
+	}
+	
+	.container #content>div {
+	margin: 10px;
+	}	
+
+	
+	}
+
+	/* Mobile Landscape/Browser */
+	@media only screen and (min-width: 480px) and (max-width: 787px) {}
+
+	/* Anything smaller than standard 960 */
+	@media only screen and (max-width: 979px) {
+		#header .inner {
+			padding-bottom: 0;
+		}
+	}
+	
+	@media only screen and (max-width: 480px) {
+		#header .header-search, #header .header-follow-us {
+			display: none;
+		}
+		.mobile-button{
+			bottom: auto;
+			top: 20px;
+		}
+		#footer .sign-up-box {
+			float: none;
+			padding-top: 20px;
+			clear: both;
+		}
+	}
+
+	/* iPad Portrait Only */
+	@media only screen and (min-width: 788px) and (max-width: 979x) and (max-device-width: 1000px) {}
+
+	/* Mobile Only */
+	@media only screen and (max-width: 787px) and (max-device-width: 1000px) {}
+
+	/* Mobile Landscape Only */
+	@media only screen and (min-width: 480px) and (max-width: 787px) and (max-device-width: 1000px) {}
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/
