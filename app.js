@@ -13,7 +13,7 @@ var port = process.env.PORT || 3000;
 
 // view engine setup
 app.set('view engine', 'twig');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server/views'));
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,8 +36,11 @@ app.use(session({
     }
 }));
 
-app.use(require('./routes/index.js'));
-app.use(require('./routes/backend.js'));
+app.use(require('./app_server/routes/index.js'));
+app.use(require('./app_server/routes/backend.js'));
+app.use(require('./app_server/routes/order.js'));
+app.use(require('./app_server/routes/spot.js'));
+app.use(require('./app_server/routes/speaker.js'));
 
 app.listen(port, function () {
     console.log('--=[ SERVER STARTED ON PORT: ' + port + ' ]=--');

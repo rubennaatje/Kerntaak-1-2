@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="wrapper-box">
+        <div class="row">
+            <div class="container">
+                <div class="entry-content">
+                    <h2 class="entry-title">Submit a request</h2>
+                    {% if requestComplete %}
+                        <h2>{{ requestComplete }}</h2>
+                    {% endif %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Submit form</div>
+                            <div class="panel-body">
+                                    <form action="/spot/submitrequest" method="POST">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="firstname">Firstname</label>
+                                                <input type="text" class="form-control" name="firstname" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="infix">Infix</label>
+                                                <input type="text" class="form-control" name="infix"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastname">Surname</label>
+                                                <input type="text" class="form-control" name="lastname" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">E-mail</label>
+                                                <input type="email" class="form-control" name="email" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="zipcode">Zipcode</label>
+                                                <input type="text" class="form-control" name="zipcode" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="street">Street</label>
+                                                <input type="text" class="form-control" name="street" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="street_nr">Street nr.</label>
+                                                <input type="number" class="form-control" name="street_nr" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="street_nr_add">Street nr. additive</label>
+                                                <input type="text" class="form-control" name="street_nr_add" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="city">city</label>
+                                                <input type="text" class="form-control" name="city" required/>
+                                            </div>
+                                        </div>
+                                        <input type="submit" name="submit" value="Continue">
+                                    </form>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

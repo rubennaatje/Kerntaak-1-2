@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link rel='stylesheet' href='/css/agenda.css' type='text/css' media='all'/>
+    <div class="wrapper-box">
+        <div class="row">
+            <div class="container">
+                <div class="entry-content">
+                    <h2 class="entry-title">Submit a budget request {% if budgetComplete %}<br/>{{ budgetComplete }}{% endif %}</h2>
+
+                    <form action="/speaker/insertrequest" method="POST">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Info about your request</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="requested_budget">How much budget do you need?</label>
+                                    &euro;<input type="number" class="form-control" name="requested_budget" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reason">What do you need it for?</label>
+                                    <textarea class="form-control" rows="5" name="reason" required></textarea>
+                                </div>
+                                <input type="hidden" name="speaker_id" value="{{ speaker.id }}" />
+                                <input type="submit" name="submit" class="btn btn-success" value="Request budget" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
