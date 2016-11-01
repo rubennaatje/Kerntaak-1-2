@@ -31,50 +31,33 @@ module.exports.orderInsert = function (req, res) {
     };
     Reservation.new(user, function (err, lastid) {
         var counter = 0;
+        var lunchdone = false;
+        var dinnerdone = false;
         if (err) {
             console.log(err);
         } else {
-            if (req.session.order.lunch > 0) {
-                Meal.new({meal: {type: 1, amount: req.session.order.lunch}}, lastid, function (err, callback) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    self.createQR(callback, 'lunch', counter, function (err, callback) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-
-                        }
-                    });
-                });
-            }
-            if (req.session.order.dinner > 0) {
-                Meal.new({meal: {type: 2, amount: req.session.order.dinner}}, lastid, function (err, callback) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    self.createQR(callback, 'dinner', counter, function (err, callback) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-
-                        }
-                    });
-                });
-            }
             Ticket.new(req.session.order, lastid, function (err, callback) {
                 if (err) {
                     console.log(err);
                 } else {
-                    self.createQR(callback, 'ticket', counter, function (err, callback) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-
-                        }
-                    });
                     if (req.session.order.ticket.type == 4) {
                         Ticket_type.parse_partout(req.session.order.ticket.amount, function (err, callback) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                    if (req.session.order.lunch > 0 && lunchdone == false) {
+                        lunchdone = true;
+                        Meal.new({meal:{type: 1, amount: req.session.order.lunch}}, lastid, function(err, callback) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                    if (req.session.order.dinner > 0 && dinnerdone == false) {
+                        dinnerdone = true;
+                        Meal.new({meal:{type: 2, amount: req.session.order.dinner}}, lastid, function(err, callback) {
                             if (err) {
                                 console.log(err);
                             }
@@ -110,8 +93,14 @@ module.exports.sendMail = function (user, lastid, callback) {
                 } else {
                     var text = '';
                     var day = '';
-
-                    self.createPDF(obj, meals, function (err, pdf) {
+                    var i = obj.length;
+                    for (var key in meals) {
+                        if (meals.hasOwnProperty(key)) {
+                            obj[i] = meals[key];
+                        }
+                        i++
+                    }
+                    setTimeout(function() {self.createPDF(obj, function (err, pdf) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -123,7 +112,7 @@ module.exports.sendMail = function (user, lastid, callback) {
                                 text: 'Your ticket reservation has been completed!', // plaintext body
                                 html: 'Dear ' + user.firstname + ', <br><br>Your order has been completed!<br><br>' +
                                 'If you would like to cancel your reservation, please click the following link:<br>' +
-                                "<a href='http://localhost:8000/order/cancel'>Cancel tickets</a><br>" +
+                                "<a href='http://localhost:8000/order/cancel/" + lastid + "'>Cancel tickets</a><br>" +
                                 "Cancelling tickets needs to be done within 2 weeks of purchase.<br><br>" +
 
                                 "We're looking forward to seeing you on our convention!",
@@ -143,82 +132,58 @@ module.exports.sendMail = function (user, lastid, callback) {
                                 }
                             });
                         }
-                    });
+                    })}, 5000);
                 }
             });
         }
     });
 };
 
-module.exports.createPDF = function (obj, meals, callback) {
+module.exports.createPDF = function(obj, callback) {
     console.log('--=[ CREATING PDF ]=--');
     var doc = new PDFDocument;
-
     doc.pipe(fs.createWriteStream('ticket_pdf/output.pdf'));
-
-    var i = 0;
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
-            self.insertPDF(doc, obj[key], 'ticket', i, null, function (err, callback) {
-                if (err) {
-                    console.log(err);
-                } else {
-
-                }
-            })
-        }
-        i++;
-    }
-
-    var lunch = 0;
-    var dinner = 0;
-    for (var key in meals) {
-        if (obj.hasOwnProperty(key)) {
-            console.log(meals[key].type);
-            self.insertPDF(doc, meals[key], meals[key].type, lunch, dinner, function (err, callback) {
-                if (err) {
-                    console.log(err);
-                } else {
-
-                }
-            });
-            lunch++;
-            dinner++;
+            var ticket = qr.imageSync(obj[key].barcode, {type:'png'});
+            doc.image(ticket, 250, 0, {fit:[205, 205]});
+            doc.text('Your ' + obj[key].type + ' ticket');
+            doc.addPage();
         }
     }
+
     setTimeout(function () {
+        doc.text('Extra info:');
+        doc.text('You have received ' + obj.length + ' tickets.');
+        doc.text('If you have bought more tickets than received,');
+        doc.text('please contact customer support with your reservation ID.');
+        doc.text('Your reservation ID is: ' + obj[0].reservation);
+        doc.text("We're looking forward to seeing you at our convention!");
         doc.end();
+        console.log('--=[ PDF CREATED AND SAVED ]=--');
         return callback(null, doc);
     }, 5000);
-
 };
 
-module.exports.createQR = function (obj, type, teller, callback) {
-    console.log('--=[ CREATING QR-CODE ]=--');
-
-    var qrcode = qr.image(obj, {type: 'png'});
-    var pipe = qrcode.pipe(fs.createWriteStream('ticket_codes/' + type + '-' + teller + '.png'));
-
-    pipe.on('finish', function () {
-        return callback(null, true);
-    });
+module.exports.cancelTickets = function (req, res) {
+    Reservation.cancel(req.params.id, function(err, callback) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(callback);
+            if (callback.affectedRows == 0) {
+                res.redirect('/order/cancel_failed');
+            } else {
+                res.redirect('/order/cancel_succeeded');
+            }
+        }
+    })
 };
 
-module.exports.insertPDF = function (doc, obj, type, i, dinner, callback) {
-    console.log('--=[ NEW PAGE SUCCEEDED ]=--');
-    doc.text('Uw ' + obj.type + ' ticket', 210, 0);
-    if (i) {
-        doc.image('ticket_codes/' + type + '-' + i + '.png', 0, 0, {fit: [205, 205]});
-    }
-    if (dinner) {
-        doc.image('ticket_codes/' + type + '-' + dinner + '.png', 0, 0, {fit: [205, 205]});
-    }
-    console.log('--=[ IMAGE SUCCEEDED ]=--');
-    doc.addPage();
-    return callback(null, true);
-
+module.exports.cancelSucceeded = function (req, res) {
+    res.render('cancel_succeeded.html.twig');
 };
 
-module.exports.cancelTickets = function(req, res) {
-
+module.exports.cancelFailed = function (req, res) {
+    res.render('cancel_failed.html.twig');
 };

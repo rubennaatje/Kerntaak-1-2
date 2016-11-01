@@ -48,7 +48,7 @@ Meal.findBy = function(obj, callback) {
             if (i == 0) {
                 var id = '';
                 if (key == 'id') {
-                    id = 'meal_type`.`id';
+                    id = '`meal_type`.`id';
                     query += "`" + id + "`" + " = " + "'" + obj[key] + "'";
                 } else {
                     query += "`" + key + "`" + " = " + "'" + obj[key] + "'";
@@ -56,7 +56,7 @@ Meal.findBy = function(obj, callback) {
             } else {
                 var id = '';
                 if (key == 'id') {
-                    id = 'meal_type`.`id';
+                    id = '`meal_type`.`id';
                     query += " OR " + "`" + id + "`" + " = " + "'" + obj[key] + "'";
                 } else {
                     query += " OR " + "`" + key + "`" + " = " + "'" + obj[key] + "'";
@@ -69,6 +69,8 @@ Meal.findBy = function(obj, callback) {
     if (empty) {
         query += "1 = 1";
     }
+
+    console.log(query);
     mysql.connection(function (err, conn) {
         if (err) {
             return callback(err, null);

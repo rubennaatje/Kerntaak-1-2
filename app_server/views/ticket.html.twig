@@ -45,8 +45,10 @@
                                         <form action="/order/submit" method="POST">
                                             <select name="ticket_type" id="ticket_type" class="form-control">
                                                 {% for ticket in tickets %}
-                                                    <option value="{{ ticket.id }}"
-                                                            data-price="{{ ticket.price }}">{{ ticket.type }}</option>
+                                                    {% if ticket.available > 0 %}
+                                                        <option value="{{ ticket.id }}"
+                                                                data-price="{{ ticket.price }}">{{ ticket.type }}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                             <input type="number" min="1" max="10" id="amount" name="ticket_amount"
@@ -66,9 +68,15 @@
                                             <input type="submit" name="submit" class="btn btn-success" value="Order"/>
                                         </form>
                                     </div>
-
                                     <div class="col-md-6">
-                                        <h2 class="pull-right">Price: &euro;<span id="price_text">2.50</span></h2>
+                                        <h2 class="pull-right">
+                                            Price: &euro;<span id="price_text">2.50</span><br/>
+                                            {% for ticket in tickets %}
+                                                {% if ticket.available <= 0 and ticket.type != "passe-partout" %}
+                                                     - {{ ticket.type }} SOLD OUT!<br/>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </h2>
                                     </div>
                                 {% endif %}
                             </div>
@@ -115,54 +123,76 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-
+        var ticketprice = 2.5;
+        {% for meal in meals %}
+            var {{ meal.type }}price = 0;
+        {% endfor %}
         $('#ticket_type').on('change', function () {
             var self = $(this);
-            $('#price_text').html(self.find(':selected').data('price') + '0');
+            ticketprice = parseFloat(self.find(':selected').data('price') * $('#amount').val());
+            $('#price_text').html(ticketprice
+                    {% for meal in meals %}
+                    + {{ meal.type }}price
+                    {% endfor %}
+            );
         });
         $('#amount').on('change', function () {
             var self = $(this);
-            $('#price_text').html($('#ticket_type').find(':selected').data('price') * self.val());
+            ticketprice = parseFloat($('#ticket_type').find(':selected').data('price') * self.val());
+            $('#price_text').html(ticketprice
+                    {% for meal in meals %}
+                    + {{ meal.type }}price
+                    {% endfor %}
+            );
         });
 
 
         {% for meal in meals %}
-        var {{ meal.type }}on = false;
-        var meal = '#{{ meal.type }}';
-        $(meal).on('click', function () {
-            var self = $(this);
-            var mealamount = '#{{ meal.type }}_amount';
-            if ({{ meal.type }}on == false) {
-                $(mealamount).val(1);
-                {{ meal.type }}on = true;
-                $('#price_text').html(parseFloat($('#price_text').text()) + self.data('price') * $(mealamount).val());
-            } else {
-                {{ meal.type }}on = false;
-                $('#price_text').html(parseFloat($('#price_text').text()) - self.data('price') * $(mealamount).val());
-                $(mealamount).val(0);
-            }
-        });
+            var {{ meal.type }}on = false;
+            var meal = '#{{ meal.type }}';
+            $(meal).on('click', function () {
+                var self = $(this);
+                var mealamount = '#{{ meal.type }}_amount';
+                if ({{ meal.type }}on == false) {
+                    $(mealamount).val(1);
+                    {{ meal.type }}on = true;
+                    {{ meal.type }}price = self.data('price') * $(mealamount).val();
+                    $('#price_text').html(ticketprice
+                            {% for meal in meals %}
+                            + {{ meal.type }}price
+                            {% endfor %}
+                    );
+                } else {
+                    {{ meal.type }}on = false;
+                    $(mealamount).val(0);
+                    {{ meal.type }}price = self.data('price') * $(mealamount).val();
+                    $('#price_text').html(ticketprice
+                            {% for meal in meals %}
+                            + {{ meal.type }}price
+                            {% endfor %}
+                    );
 
-        $('#{{ meal.type }}_amount').on('change', function () {
-            var self = $(this);
-            {#if (self.val() > 1) {#}
-            {#var add = parseFloat($('#price_text').text()) - ($('#ticket_type').find(':selected').data('price') * $('#amount').val()#}
-            {#+ $('#{{ meal.type }}').data('price') * (self.val() - 1));#}
-            {#} else if (self.val() == 0) {#}
-            {#var add = parseFloat($('#price_text').text()) - ($('#ticket_type').find(':selected').data('price') * $('#amount').val()#}
-            {#+ $('#{{ meal.type }}').data('price') * (self.val() + 1));#}
-            {#}#}
-            $('#price_text').html(
-                    $('#ticket_type').find(':selected').data('price') * $('#amount').val()
-                    + $('#{{ meal.type }}').data('price') * self.val()
-            );
+                }
+            });
 
-            if (self.val() > 0) {
-                $('#{{ meal.type }}').attr('checked', 'checked');
-            } else if (self.val() == 0) {
-                $('#{{ meal.type }}').removeAttr('checked');
-            }
-        });
+            $('#{{ meal.type }}_amount').on('change', function () {
+                var self = $(this);
+                {{ meal.type }}price = $('#{{ meal.type }}').data('price') * self.val();
+
+                $('#price_text').html(ticketprice
+                        {% for meal in meals %}
+                        + {{ meal.type }}price
+                        {% endfor %}
+                );
+
+                if (self.val() > 0) {
+                    {{ meal.type }}on = true;
+                    $('#{{ meal.type }}').attr('checked', 'checked');
+                } else if (self.val() == 0) {
+                    {{ meal.type }}on = false;
+                    $('#{{ meal.type }}').removeAttr('checked');
+                }
+            });
         {% endfor %}
 
     </script>

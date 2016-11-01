@@ -13,7 +13,7 @@ Agenda.getAll = function (callback) {
         "INNER JOIN `spot` ON `agenda`.`spot` = `spot`.`id` " +
         "INNER JOIN `speaker` ON `agenda`.`speaker` = `speaker`.`id` " +
         "INNER JOIN `hall` ON `spot`.`hall` = `hall`.`id` " +
-        "ORDER BY `spot`.`start_time` ASC";
+        "ORDER BY `speaker`.`lastname`, `spot`.`start_time` ASC";
     mysql.connection(function (err, conn) {
         if (err) {
             console.log('     FAILED! ]=--');

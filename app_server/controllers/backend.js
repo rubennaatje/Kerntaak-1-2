@@ -5,6 +5,7 @@ var Agenda = require('../database/models/agenda');
 var Budget_request = require('../database/models/budget_request');
 var Moderator = require('../database/models/moderator');
 var Speaker = require('../database/models/speaker');
+var Agenda = require('../database/models/agenda');
 var Mailer = require('../config/mailconfig');
 var self = this;
 
@@ -28,19 +29,26 @@ module.exports.loadIndex = function (req, res) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log(accepted);
                                         Moderator.getBudget(function(err, budget) {
                                             if (err) {
                                                 console.log(err);
                                             } else {
-                                                res.render('backend/backend_base.html.twig', {
-                                                    user: req.session.user,
-                                                    requests: requests,
-                                                    spots: spots,
-                                                    budget_requests: budget_requests,
-                                                    budget: budget,
-                                                    accepted: accepted
-                                                })
+                                                Agenda.getAll(function(err, speakers) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        res.render('backend/backend_base.html.twig', {
+                                                            user: req.session.user,
+                                                            requests: requests,
+                                                            spots: spots,
+                                                            budget_requests: budget_requests,
+                                                            budget: budget,
+                                                            accepted: accepted,
+                                                            speakers: speakers
+                                                        })
+                                                    }
+                                                });
+
                                             }
                                         });
                                     }
