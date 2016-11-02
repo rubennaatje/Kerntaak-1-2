@@ -42,12 +42,8 @@ app.use(require('./app_server/routes/order.js'));
 app.use(require('./app_server/routes/spot.js'));
 app.use(require('./app_server/routes/speaker.js'));
 
-app.listen(80, function () {
-    console.log('--=[ SERVER STARTED ON PORT: ' + 80 + ' ]=--');
-});
-
-app.listen(443, function () {
-    console.log('--=[ SERVER STARTED ON PORT: ' + 443 + ' ]=--');
+app.listen(function () {
+    console.log('--=[ SERVER STARTED ]=--');
 });
 
 module.exports = app;
