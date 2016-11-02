@@ -42,7 +42,7 @@ app.use(require('./app_server/routes/order.js'));
 app.use(require('./app_server/routes/spot.js'));
 app.use(require('./app_server/routes/speaker.js'));
 
-app.listen(function () {
+app.listen(80, function () {
     console.log('--=[ SERVER STARTED ]=--');
 });
 
