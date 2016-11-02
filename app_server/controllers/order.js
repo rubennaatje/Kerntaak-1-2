@@ -119,7 +119,7 @@ module.exports.sendMail = function (user, lastid, callback) {
                                 "We're looking forward to seeing you on our convention!",
                                 attachments: [{
                                     filename: 'tickets.pdf',
-                                    path: path.resolve(process.cwd(),'ticket_pdf/output.pdf'),
+                                    path: path.resolve(process.cwd(),'output.pdf'),
                                     contentType: 'application/pdf'
                                 }]
                             };
@@ -143,7 +143,7 @@ module.exports.sendMail = function (user, lastid, callback) {
 module.exports.createPDF = function(obj, callback) {
     console.log('--=[ CREATING PDF ]=--');
     var doc = new PDFDocument;
-    doc.pipe(fs.createWriteStream('ticket_pdf/output.pdf'));
+    doc.pipe(fs.createWriteStream('output.pdf'));
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
             var ticket = qr.imageSync(obj[key].barcode, {type:'png'});
