@@ -5,11 +5,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var memcached = require('connect-memcached')(session);
-var cookieStore = new memcached({hosts:"https://kerntaak-1-2.herokuapp.com:11211"});
-
 var app = express();
-var port = process.env.PORT || 3000;
+var memcached = require('connect-memcached')(session);
+var cookieStore = new memcached({hosts: + "localhost:11211"});
+
+
+var port = process.env.PORT || 8000;
 
 // view engine setup
 app.set('view engine', 'twig');
