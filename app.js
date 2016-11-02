@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var memcached = require('connect-memcached')(session);
 
-var cookieStore = new memcached({hosts: + process.env.IP + ":11211"});
+var cookieStore = new memcached({hosts: "kerntaak-1-2.herokuapp.com:11211"});
 
 
 var port = process.env.PORT || 8000;
