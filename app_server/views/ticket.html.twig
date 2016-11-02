@@ -187,10 +187,10 @@
 
                 if (self.val() > 0) {
                     {{ meal.type }}on = true;
-                    $('#{{ meal.type }}').attr('checked', 'checked');
+                    $('#{{ meal.type }}').prop('checked', true);
                 } else if (self.val() == 0) {
                     {{ meal.type }}on = false;
-                    $('#{{ meal.type }}').removeAttr('checked');
+                    $('#{{ meal.type }}').prop('checked', false);
                 }
             });
         {% endfor %}
