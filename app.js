@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
 var memcached = require('connect-memcached')(session);
-var cookieStore = new memcached({hosts: + "localhost:11211"});
+var cookieStore = new memcached();
 
 
 var port = process.env.PORT || 8000;
