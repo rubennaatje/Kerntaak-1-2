@@ -9,7 +9,7 @@ var memcached = require('connect-memcached')(session);
 var cookieStore = new memcached({hosts:"localhost:11211"});
 
 var app = express();
-var port = process.env.PORT;
+var port = process.env.PORT || 3000;
 
 // view engine setup
 app.set('view engine', 'twig');
