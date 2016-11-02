@@ -6,6 +6,7 @@ var Mailer = require('../config/mailconfig');
 var PDFDocument = require('pdfkit');
 var qr = require('qr-image');
 var fs = require('fs');
+var path = require('path');
 var self = this;
 
 module.exports.orderSubmit = function (req, res) {
@@ -112,13 +113,13 @@ module.exports.sendMail = function (user, lastid, callback) {
                                 text: 'Your ticket reservation has been completed!', // plaintext body
                                 html: 'Dear ' + user.firstname + ', <br><br>Your order has been completed!<br><br>' +
                                 'If you would like to cancel your reservation, please click the following link:<br>' +
-                                "<a href='http://localhost:8000/order/cancel/" + lastid + "'>Cancel tickets</a><br>" +
+                                "<a href='https://kerntaak-1-2.herokuapp.com/order/cancel/" + lastid + "'>Cancel tickets</a><br>" +
                                 "Cancelling tickets needs to be done within 2 weeks of purchase.<br><br>" +
 
                                 "We're looking forward to seeing you on our convention!",
                                 attachments: [{
                                     filename: 'tickets.pdf',
-                                    path: 'C:/htdocs/kerntaak-1-2/ticket_pdf/output.pdf',
+                                    path: path.resolve(process.cwd(),'ticket_pdf/output.pdf'),
                                     contentType: 'application/pdf'
                                 }]
                             };

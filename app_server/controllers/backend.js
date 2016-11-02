@@ -188,9 +188,9 @@ module.exports.sendCounterMail = function (obj, callback) {
         html: 'Dear ' + obj.firstname + ', <br><br>Your budget request has been denied<br>' +
         'However, we are willing to give you a counter offer of &euro;' + obj.counteramount + '<br>' +
         "By clicking the following link you will accept the offer:<br>" +
-        "<a href='http://localhost:8000/acceptoffer/" + obj.request_id + "'>Accept offer</a><br>" +
+        "<a href='https://kerntaak-1-2.herokuapp.com/acceptoffer/" + obj.request_id + "'>Accept offer</a><br>" +
         "But, if you don't agree, you can click this link:<br>" +
-        "<a href='http://localhost:8000/rejectoffer/" + obj.request_id + "'>Reject offer</a><br><br>" +
+        "<a href='https://kerntaak-1-2.herokuapp.com/rejectoffer/" + obj.request_id + "'>Reject offer</a><br><br>" +
         "All the best,<br>" +
         "The Organizer"
     };
