@@ -5,12 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var app = express();
 var memcached = require('connect-memcached')(session);
 
-var cookieStore = new memcached({hosts: "kerntaak-1-2.herokuapp.com:11211"});
-
-
+var app = express();
 var port = process.env.PORT || 8000;
 
 // view engine setup
@@ -30,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'database')));
 app.use(session({
     secret: 'akla53@#%Qtiq543uq8er^q2435',
     name: 'user',
-    store: cookieStore,
     resave: true,
     saveUninitialized: true,
     cookie: {
