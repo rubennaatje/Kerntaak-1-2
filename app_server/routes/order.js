@@ -9,6 +9,7 @@ var orderController = require('../controllers/order');
 router.get('/order/cancel/:id', orderController.cancelTickets);
 router.get('/order/cancel_failed', orderController.cancelFailed);
 router.get('/order/cancel_succeeded', orderController.cancelSucceeded);
+router.get('/order/cancel_order', orderController.cancelOrder);
 
 //--=[ Router POSTS ]=--\\
 router.post('/order/submit', orderController.orderSubmit);

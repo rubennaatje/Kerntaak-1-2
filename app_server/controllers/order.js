@@ -9,6 +9,8 @@ var fs = require('fs');
 var path = require('path');
 var self = this;
 
+// Puts the chosen tickets in the user's session
+// this makes sure the user can still cancel it
 module.exports.orderSubmit = function (req, res) {
     var order = {
         ticket: {
@@ -23,6 +25,9 @@ module.exports.orderSubmit = function (req, res) {
     res.redirect('/tickets');
 };
 
+// Inserts the whole order into the database
+// Asks other functions to create a PDF file
+// and send a mail
 module.exports.orderInsert = function (req, res) {
     var user = {
         firstname: req.body.firstname,
@@ -48,7 +53,7 @@ module.exports.orderInsert = function (req, res) {
                             }
                         });
                     }
-                    if (req.session.order.lunch > 0 && lunchdone == false) {
+                    if (req.session.order.lunch > 0 && lunchdone === false) {
                         lunchdone = true;
                         Meal.new({meal:{type: 1, amount: req.session.order.lunch}}, lastid, function(err, callback) {
                             if (err) {
@@ -56,7 +61,7 @@ module.exports.orderInsert = function (req, res) {
                             }
                         });
                     }
-                    if (req.session.order.dinner > 0 && dinnerdone == false) {
+                    if (req.session.order.dinner > 0 && dinnerdone === false) {
                         dinnerdone = true;
                         Meal.new({meal:{type: 2, amount: req.session.order.dinner}}, lastid, function(err, callback) {
                             if (err) {
@@ -65,7 +70,7 @@ module.exports.orderInsert = function (req, res) {
                         });
                     }
                     counter++;
-                    if (counter == req.session.order.ticket.amount) {
+                    if (counter === req.session.order.ticket.amount) {
                         req.session.orderComplete = 'Your order has been completed successfully!';
                         self.sendMail(user, lastid, function (err, callback) {
                             if (err) {
@@ -83,6 +88,8 @@ module.exports.orderInsert = function (req, res) {
     });
 };
 
+// Sends the mail with the PDF file attached to the user
+// Input is the userobject 'user' and the INT 'lastid'
 module.exports.sendMail = function (user, lastid, callback) {
     Ticket.findBy({reservation: lastid}, function (err, obj) {
         if (err) {
@@ -140,6 +147,7 @@ module.exports.sendMail = function (user, lastid, callback) {
     });
 };
 
+// Creates the PDF file from the order Object 'obj'
 module.exports.createPDF = function(obj, callback) {
     console.log('--=[ CREATING PDF ]=--');
     var doc = new PDFDocument;
@@ -166,13 +174,16 @@ module.exports.createPDF = function(obj, callback) {
     }, 5000);
 };
 
+// If a user decides to cancel their tickets
+// using the link provided in their e-mail,
+// this function handles it
 module.exports.cancelTickets = function (req, res) {
     Reservation.cancel(req.params.id, function(err, callback) {
         if (err) {
             console.log(err);
         } else {
             console.log(callback);
-            if (callback.affectedRows == 0) {
+            if (callback.affectedRows === 0) {
                 res.redirect('/order/cancel_failed');
             } else {
                 res.redirect('/order/cancel_succeeded');
@@ -181,10 +192,22 @@ module.exports.cancelTickets = function (req, res) {
     })
 };
 
+// If a user misclicked or
+// change their minds and press 'cancel',
+// this function handles it
+module.exports.cancelOrder = function (req, res) {
+    delete req.session.order;
+    res.redirect('/tickets');
+};
+
+// Renders the cancel_succeeded page after cancelling tickets
 module.exports.cancelSucceeded = function (req, res) {
     res.render('cancel_succeeded.html.twig');
 };
 
+// If the cancel of the tickets has failed
+// (due to being too late or some error)
+// This function will render a message for the user
 module.exports.cancelFailed = function (req, res) {
     res.render('cancel_failed.html.twig');
 };
