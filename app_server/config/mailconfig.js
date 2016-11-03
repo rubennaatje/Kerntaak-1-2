@@ -4,8 +4,8 @@ var smtpConfig = {
     port: 465,
     secure: true, // use SSL
     auth: {
-        user: 'zakelijk@mauritsversluis.nl',
-        pass: 'Tr3in3n97'
+        user: 'conference@mauritsversluis.nl',
+        pass: 'conferenceMail!'
     }
 };
 
