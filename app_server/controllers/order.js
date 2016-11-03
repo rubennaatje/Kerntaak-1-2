@@ -53,7 +53,7 @@ module.exports.orderInsert = function (req, res) {
                             }
                         });
                     }
-                    if (req.session.order.lunch > 0 && lunchdone === false) {
+                    if (req.session.order.lunch > 0 && lunchdone == false) {
                         lunchdone = true;
                         Meal.new({meal:{type: 1, amount: req.session.order.lunch}}, lastid, function(err, callback) {
                             if (err) {
@@ -61,7 +61,7 @@ module.exports.orderInsert = function (req, res) {
                             }
                         });
                     }
-                    if (req.session.order.dinner > 0 && dinnerdone === false) {
+                    if (req.session.order.dinner > 0 && dinnerdone == false) {
                         dinnerdone = true;
                         Meal.new({meal:{type: 2, amount: req.session.order.dinner}}, lastid, function(err, callback) {
                             if (err) {
@@ -70,7 +70,7 @@ module.exports.orderInsert = function (req, res) {
                         });
                     }
                     counter++;
-                    if (counter === req.session.order.ticket.amount) {
+                    if (counter == req.session.order.ticket.amount) {
                         req.session.orderComplete = 'Your order has been completed successfully!';
                         self.sendMail(user, lastid, function (err, callback) {
                             if (err) {
@@ -114,7 +114,7 @@ module.exports.sendMail = function (user, lastid, callback) {
                         } else {
 
                             var mailOptions = {
-                                from: '"ICT4D" <zakelijk@mauritsversluis.nl>', // sender address
+                                from: '"ICT4D" <conference@mauritsversluis.nl>', // sender address
                                 to: user.email, // list of receivers
                                 subject: 'Confirmation ticket reservation', // Subject line
                                 text: 'Your ticket reservation has been completed!', // plaintext body
@@ -183,7 +183,7 @@ module.exports.cancelTickets = function (req, res) {
             console.log(err);
         } else {
             console.log(callback);
-            if (callback.affectedRows === 0) {
+            if (callback.affectedRows == 0) {
                 res.redirect('/order/cancel_failed');
             } else {
                 res.redirect('/order/cancel_succeeded');
