@@ -41,7 +41,7 @@ app.use(require('./app_server/routes/spot.js'));
 app.use(require('./app_server/routes/speaker.js'));
 
 app.listen(port, function () {
-    console.log('--=[ SERVER STARTED ' + process.env.IP + ' ]=--');
+    console.log('--=[ SERVER STARTED ]=--');
 });
 
 module.exports = app;
